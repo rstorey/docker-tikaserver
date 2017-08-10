@@ -17,5 +17,8 @@ RUN	apt-get update \
 	&& curl -sSL "$NEAREST_TIKA_SERVER_URL" -o /tika-server-${TIKA_VERSION}.jar \
 	&& apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN	curl -Lo /usr/share/tesseract-ocr/tessdata/eng.traineddata \
+		https://github.com/tesseract-ocr/tessdata/raw/master/eng.traineddata
+
 EXPOSE 9998
 ENTRYPOINT java -jar /tika-server-${TIKA_VERSION}.jar -h 0.0.0.0
